@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://cemmanuelp.github.io/sitemap/sitemap-index.xml
+Host: https://cemmanuelp.github.io
