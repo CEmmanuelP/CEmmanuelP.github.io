@@ -1,8 +1,10 @@
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from '@emotion/styled';
 import PostItem from 'components/Main/PostItem';
 import { FluidObject } from 'gatsby-image';
-import useInfiniteScroll from 'hooks/useInfiniteScroll';
+import useInfiniteScroll, {
+  useInfiniteScrollType,
+} from 'hooks/useInfiniteScroll';
 
 export type PostType = {
   node: {
@@ -48,7 +50,10 @@ const PostList: FunctionComponent<PostListProps> = function ({
   selectedCategory,
   posts,
 }) {
-  const { containerRef, postList } = useInfiniteScroll(selectedCategory, posts);
+  const { containerRef, postList }: useInfiniteScrollType = useInfiniteScroll(
+    selectedCategory,
+    posts,
+  );
 
   return (
     <PostListWrapper ref={containerRef}>

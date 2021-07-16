@@ -1,11 +1,24 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    title: `Eugene's Portfolio`,
+    description: `eugene's portfolio website`,
+    author: `eugene`,
+    siteUrl: `https://CEmmanuelP.github.io/`,
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: {
+        siteUrl: 'https://CEmmanuelP.github.io/',
+        stripQueryString: true,
+      },
+    },
     {
       resolve: 'gatsby-plugin-typescript',
       options: {
@@ -31,6 +44,7 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    'gatsby-plugin-sitemap',
     `gatsby-plugin-sharp`,
     // {
     //   resolve: `gatsby-plugin-manifest`,
