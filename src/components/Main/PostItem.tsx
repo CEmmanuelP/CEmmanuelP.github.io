@@ -44,9 +44,9 @@ const PostItemContent = styled.div`
 
 const Title = styled.div`
   display: -webkit-box;
-  overflow: hidden;
   margin-bottom: 3px;
   text-overflow: ellipsis;
+  overflow: inherit;
   white-space: normal;
   overflow-wrap: break-word;
   -webkit-line-clamp: 2;
@@ -72,7 +72,7 @@ const CategoryItem = styled.div`
   margin: 2.5px 5px;
   padding: 3px 5px;
   border-radius: 3px;
-  background: black;
+  background: #485563;
   font-size: 14px;
   font-weight: 700;
   color: white;

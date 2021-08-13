@@ -40,6 +40,7 @@ const CategoryItem = styled(({ active, to, ...props }: GatsbyLinkProps) => (
   padding: 5px 0;
   font-size: 18px;
   font-weight: ${({ active }) => (active ? '800' : '400')};
+  color: '#485563';
   cursor: pointer;
 
   &:last-of-type {
@@ -59,7 +60,7 @@ const CategoryList: FunctionComponent<CategoryListProps> = function ({
     <CategoryListWrapper>
       {Object.entries(categoryList).map(([name, count]) => (
         <CategoryItem
-          to={`/?category=${name}`}
+          to={`/projects?category=${name}`}
           active={name === selectedCategory}
           key={name}
         >

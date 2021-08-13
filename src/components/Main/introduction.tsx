@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import styled from '@emotion/styled';
 import ProfileImage, { ProfileImageProps } from 'components/Main/ProfileImage';
+import { Link } from 'gatsby';
 
 type IntroductionProps = ProfileImageProps;
 
@@ -29,6 +30,7 @@ const Wrapper = styled.div`
 const SubTitle = styled.div`
   font-size: 20px;
   font-weight: 400;
+  color: #d5c455;
 
   @media (max-width: 768px) {
     font-size: 15px;
@@ -51,8 +53,9 @@ const Introduction: FunctionComponent<IntroductionProps> = function ({
   return (
     <Background>
       <Wrapper>
-        <ProfileImage profileImage={profileImage} />
-
+        <Link to="/">
+          <ProfileImage profileImage={profileImage} />
+        </Link>
         <div>
           <SubTitle>Hello, World?</SubTitle>
           <Title>I'm Developer eugene.</Title>

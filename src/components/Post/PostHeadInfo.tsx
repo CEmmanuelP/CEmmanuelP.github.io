@@ -45,7 +45,7 @@ const PrevPageIcon = styled.div`
 
 const Title = styled.div`
   display: -webkit-box;
-  overflow: hidden;
+  overflow: inherit;
   overflow-wrap: break-word;
   margin-top: auto;
   text-overflow: ellipsis;

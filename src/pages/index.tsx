@@ -1,122 +1,80 @@
-import React, { FunctionComponent, useMemo } from 'react';
-import Template from 'components/Common/Template';
-import GlobalStyle from 'components/Common/GlobalStyle';
-import Introduction from 'components/Main/introduction';
-import Footer from 'components/Common/Footer';
-import CategoryList, { CategoryListProps } from 'components/Main/CategoryList';
-import PostList, { PostType } from 'components/Main/PostList';
-import { graphql } from 'gatsby';
-import { ProfileImageProps } from 'components/Main/ProfileImage';
-import queryString, { ParsedQuery } from 'query-string';
+import React, { FunctionComponent } from 'react';
+import { Link } from 'gatsby';
+import styled from '@emotion/styled';
 
-interface IndexPageProps {
-  location: {
-    search: string;
-  };
-  data: {
-    allMarkdownRemark: {
-      edges: PostType[];
-    };
-    file: {
-      childImageSharp: {
-        fluid: ProfileImageProps['profileImage'];
-      };
-    };
-  };
-}
+const Container = styled.div`
+  height: 100vh;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
 
-const IndexPage: FunctionComponent<IndexPageProps> = function ({
-  location: { search },
-  data: {
-    allMarkdownRemark: { edges },
-    file: {
-      childImageSharp: { fluid },
-    },
-  },
-}) {
-  const parsed: ParsedQuery<string> = queryString.parse(search);
-  const selectedCategory: string =
-    typeof parsed.category !== 'string' || !parsed.category
-      ? 'All'
-      : parsed.category;
+  @media (max-width: 768px) {
+  }
+`;
 
-  const categoryList = useMemo(
-    () =>
-      edges.reduce(
-        (
-          list: CategoryListProps['categoryList'],
-          {
-            node: {
-              frontmatter: { categories },
-            },
-          }: PostType,
-        ) => {
-          categories.forEach(category => {
-            if (list[category] === undefined) list[category] = 1;
-            else list[category]++;
-          });
+const DeveloperJobGroup = styled.div`
+  font-weight: 900;
+  color: #d5c455;
+  font-size: 16px;
+  letter-spacing: 1px;
+`;
 
-          list['All']++;
+const WelcomeDescription = styled.div`
+  width: 500px;
+  font-size: 15px;
+  text-align: center;
 
-          return list;
-        },
-        { All: 0 },
-      ),
-    [],
-  );
+  @media (max-width: 768px) {
+    width: 300px;
+    font-size: 12px;
+  }
+`;
 
+const IndexPage: FunctionComponent = function () {
   return (
-    <Template>
-      <Introduction profileImage={fluid} />
-      <CategoryList
-        selectedCategory={selectedCategory}
-        categoryList={categoryList}
-      />
-      <PostList selectedCategory={selectedCategory} posts={edges} />
-    </Template>
+    <>
+      <Container>
+        <DeveloperJobGroup>Web Developer</DeveloperJobGroup>
+        <h1>Kim Eugene</h1>
+        <WelcomeDescription>
+          <p>
+            - Javascript(ES6+)
+            <br />
+            - SPA 개발 경험(React)
+            <br />
+            - Android App 개발 경험(Kotlin)
+            <br />
+            - Java, Spring Framework를 활용한 API 개발 경험
+            <br />을 가지고 있습니다.
+          </p>
+        </WelcomeDescription>
+        <Link
+          style={{
+            marginTop: '1rem',
+            background: '#d5c455',
+            color: '#485563',
+            border: '1px solid  #d5c455',
+            borderRadius: '4px',
+            fontSize: '12px',
+            textTransform: 'uppercase',
+            padding: '1.5rem',
+            paddingTop: '0.5rem',
+            paddingBottom: '0.5rem',
+            userSelect: 'none',
+            textDecoration: 'none',
+          }}
+          to="/projects/"
+        >
+          My Projects
+        </Link>
+      </Container>
+    </>
   );
 };
 
 export default IndexPage;
-
-export const getPostList = graphql`
-  query getPostList {
-    allMarkdownRemark(
-      sort: { order: DESC, fields: [frontmatter___date, frontmatter___title] }
-    ) {
-      edges {
-        node {
-          id
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            summary
-            date(formatString: "YYYY.MM.DD.")
-            categories
-            thumbnail {
-              childImageSharp {
-                fluid(
-                  maxWidth: 768
-                  maxHeight: 200
-                  fit: INSIDE
-                  quality: 100
-                ) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    file(name: { eq: "profile-image" }) {
-      childImageSharp {
-        fluid(maxWidth: 120, maxHeight: 120, fit: INSIDE, quality: 100) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-  }
-`;
